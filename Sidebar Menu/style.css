@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#f1faff, #cbe4ff);
+}
+
+.sidebar {
+    width: 270px;
+    position: fixed;
+    margin: 16px;
+    border-radius: 16px;
+    background: #151a2d;
+    height: calc(100vh - 32px);
+    transition: width 0.4s ease;
+    overflow: hidden;   /* keeps hover effect inside */
+}
+
+.sidebar.collapsed {
+    width: 85px;
+}
+
+/* ---------- Sidebar Header ---------- */
+.sidebar-header {
+    position: relative;
+    display: flex;
+    padding: 25px 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-header .header-logo img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+/* Toggler default (expanded) */
+.sidebar-header .toggler {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 35px;
+    width: 35px;
+    border: none;
+    color: #151a2d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background: #fff;
+    transition: 0.4s ease;
+}
+
+/* Toggler when collapsed (below logo) */
+.sidebar.collapsed .sidebar-header .toggler {
+    top: unset;
+    right: unset;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidebar-header .toggler:hover {
+    background: #dde4fb;
+}
+
+.sidebar-header .toggler span {
+    font-size: 1.75rem;
+}
+
+/* ---------- Navigation ---------- */
+.sidebar-nav .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 6px;
+    padding: 0 15px;
+    flex-direction: column;
+    transform: translateY(25px); /* pushed a little down to avoid collision */
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    transition: 0.3s ease;
+    background: transparent;
+    position: relative; /* for tooltip */
+}
+
+.sidebar-nav .nav-link:hover {
+    color: #151a2d;
+    background: #fff;
+}
+
+/* Hide labels when collapsed */
+.sidebar.collapsed .sidebar-nav .nav-link .nav-label {
+    opacity: 0;
+    pointer-events: none;
+}
+.sidebar-nav .nav-link .nav-label {
+    transition: opacity 0.4s ease;
+}
+
+/* Secondary nav (bottom links) */
+.sidebar-nav .secondary-nav {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}
+
+/* ---------- Tooltip on Hover (Collapsed) ---------- */
+.sidebar.collapsed .nav-link::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #151a2d;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    font-size: 0.85rem;
+}
+
+.sidebar.collapsed .nav-link:hover::after {
+    opacity: 1;
+}
